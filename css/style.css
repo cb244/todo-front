@@ -25,39 +25,7 @@ h1 {
     font-size: 24px;
 }
 
-
-ul {
-    list-style: none;
-    padding: 0px;
-}
-
-li {
-    margin-top: 4px;
-    margin-bottom: 4px;
-    border-radius: 5px;
-    border-style: solid;
-    border-width: 1px;
-    border-color: #131842;
-    background-color: #FFFFFF;
-    padding: 12px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    color: #131842;
-}
-
-li.focus {
-    border-width: 2px;
-    border-color: #131842;
-    padding: 11px;
-}
-
-li#new-item {
-    visibility: hidden;
-}
-
 button.icon-btn {
-    margin-right: 4px;
     background-color: transparent;
     border: none;
     cursor: pointer;
@@ -65,7 +33,59 @@ button.icon-btn {
     color: #131842;
 }
 
-li input {
+/* list */
+ul {
+    list-style: none;
+    padding: 0px;
+}
+
+/* list item */
+li {
+    margin-top: 4px;
+    margin-bottom: 4px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+li#new-item {
+    visibility: hidden;
+}
+
+li button {
+    margin: 0px;
+}
+
+li dev {
+    margin-right: 8px;
+    width: 100%;
+
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #131842;
+    background-color: #FFFFFF;
+
+    padding: 12px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    color: #131842;
+}
+
+li dev.focus {
+    border-width: 2px;
+    border-color: #131842;
+    padding: 11px;
+}
+
+li dev button {
+    margin-right: 4px;
+}
+
+li dev input {
     width: 100%;
     background-color: transparent;
     border: none;
@@ -74,7 +94,7 @@ li input {
     font-size: medium;
 }
 
-li.done input {
+li.done dev input {
     text-decoration: line-through;
 }
 

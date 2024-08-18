@@ -22,12 +22,14 @@ function createListItem(task) {
         listItem.classList.add("done");
     }
 
+    const box = document.createElement('dev');
+
     const checkButton = document.createElement('button');
     checkButton.classList.add("icon-btn");
     checkButton.classList.add("material-icons");
     checkButton.textContent = task.done == true ? "check_circle" : "radio_button_unchecked";
     checkButton.addEventListener('click', (element) => toggleDone(element));
-    listItem.appendChild(checkButton);
+    box.appendChild(checkButton);
 
     const contentInput = document.createElement('input');
     contentInput.type = "text";
@@ -35,14 +37,18 @@ function createListItem(task) {
     contentInput.value = task.content;
     contentInput.addEventListener('focus', (element) => hasTextAreaFocus(element));
     contentInput.addEventListener('blur', (element) => lossTextAreaFocus(element));
-    listItem.appendChild(contentInput);
+    box.appendChild(contentInput);
+
+    listItem.appendChild(box);
 
     const deleteButton = document.createElement("button");
     deleteButton.classList.add("icon-btn");
     deleteButton.classList.add("material-icons");
     deleteButton.textContent = "delete";
     deleteButton.addEventListener('click', (element) => onClickDelItemButton(element));
+
     listItem.appendChild(deleteButton);
+
     return listItem;
 }
 
@@ -53,7 +59,7 @@ async function getTasks() {
 }
 
 async function toggleDone(element) {
-    const id = element.target.parentNode.id;
+    const id = element.target.parentNode.parentNode.id;
 
     let data;
     await axios.get("http://localhost:8080/api/tasks/" + id, data)
@@ -82,9 +88,9 @@ async function toggleDone(element) {
 
     element.target.textContent = data.done == true ? "check_circle" : "radio_button_unchecked";
     if (data.done) {
-        element.target.parentNode.classList.add("done");
+        element.target.parentNode.parentNode.classList.add("done");
     } else {
-        element.target.parentNode.classList.remove("done");
+        element.target.parentNode.parentNode.classList.remove("done");
     }
 }
 
@@ -93,7 +99,7 @@ function hasTextAreaFocus(element) {
 }
 
 async function lossTextAreaFocus(element) {
-    const id = element.target.parentNode.id;
+    const id = element.target.parentNode.parentNode.id;
 
     let data;
     await axios.get("http://localhost:8080/api/tasks/" + id, null)
@@ -114,7 +120,7 @@ async function lossTextAreaFocus(element) {
             console.log("err:", err);
         });
 
-    await axios.get("http://localhost:8080/api/tasks/" + id, data)
+    await axios.get("http://localhost:8080/api/tasks/" + id, null)
         .then(res => {
             data = res.data;
         }).catch(err => {
@@ -177,7 +183,7 @@ async function onClickDelItemButton(element) {
             console.log("err:", err);
         });
 
-    if (data == null) {
+    if (data == "") {
         element.target.parentNode.remove();
     }
 }
